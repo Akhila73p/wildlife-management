@@ -17,13 +17,14 @@ ALLOWED_ROLES = {
 }
 
 
+# REGISTER USER
 def create_user(db: Session, user: UserCreate):
 
-    # Validate role
+    # Check role
     if user.role not in ALLOWED_ROLES:
         return None
 
-    # Check whether email already exists
+    # Check if email already exists
     existing_user = db.query(User).filter(
         User.email == user.email
     ).first()
@@ -46,8 +47,10 @@ def create_user(db: Session, user: UserCreate):
     return new_user
 
 
+# LOGIN USER
 def login_user(db: Session, email: str, password: str):
 
+    # Find user
     user = db.query(User).filter(
         User.email == email
     ).first()
@@ -55,14 +58,16 @@ def login_user(db: Session, email: str, password: str):
     if user is None:
         return None
 
+    # Check password
     if not verify_password(password, user.password):
         return None
 
-    # Include role inside JWT
+    # Create JWT with user information
     token = create_access_token(
         {
             "sub": user.email,
-            "role": user.role
+            "role": user.role,
+            "full_name": user.full_name
         }
     )
 

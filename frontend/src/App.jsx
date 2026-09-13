@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Home from "./pages/Home";
+import Home from "./pages/home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+
 import Dashboard from "./pages/Dashboard";
 import Wildlife from "./pages/Wildlife";
 import Detection from "./pages/Detection";
@@ -12,28 +13,36 @@ import Profile from "./pages/Profile";
 import History from "./pages/History";
 import AudioDetection from "./pages/AudioDetection";
 import Analytics from "./pages/Analytics";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Population from "./pages/Population";
 import Conservation from "./pages/Conservation";
 import EcosystemHealth from "./pages/EcosystemHealth";
 
-import StudentDashboard from "./pages/studentdashboard";
-import ResearchOfficerDashboard from "./pages/researchofficerdashboard";
-import ForestOfficerDashboard from "./pages/forestofficerdashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+// Role dashboards
+import StudentDashboard from "./pages/StudentDashboard";
+import ResearchOfficerDashboard from "./pages/ResearchOfficerDashboard";
+import ForestOfficerDashboard from "./pages/ForestOfficerDashboard";
+
 
 function App() {
   return (
     <BrowserRouter>
+
       <Routes>
 
-        {/* HOME */}
+        {/* ================= PUBLIC PAGES ================= */}
+
         <Route path="/" element={<Home />} />
 
-        {/* AUTHENTICATION */}
         <Route path="/login" element={<Login />} />
+
         <Route path="/register" element={<Register />} />
 
-        {/* STUDENT DASHBOARD */}
+
+        {/* ================= ROLE DASHBOARDS ================= */}
+
+        {/* Student */}
         <Route
           path="/student-dashboard"
           element={
@@ -43,7 +52,7 @@ function App() {
           }
         />
 
-        {/* RESEARCH OFFICER DASHBOARD */}
+        {/* Research Officer */}
         <Route
           path="/research-officer-dashboard"
           element={
@@ -53,7 +62,7 @@ function App() {
           }
         />
 
-        {/* FOREST OFFICER DASHBOARD */}
+        {/* Forest Officer */}
         <Route
           path="/forest-officer-dashboard"
           element={
@@ -63,7 +72,7 @@ function App() {
           }
         />
 
-        {/* ADMIN / COMMON DASHBOARD */}
+        {/* Admin */}
         <Route
           path="/dashboard"
           element={
@@ -73,7 +82,9 @@ function App() {
           }
         />
 
-        {/* WILDLIFE */}
+
+        {/* ================= COMMON PAGES ================= */}
+
         <Route
           path="/wildlife"
           element={
@@ -83,7 +94,6 @@ function App() {
           }
         />
 
-        {/* IMAGE DETECTION */}
         <Route
           path="/detection"
           element={
@@ -93,17 +103,6 @@ function App() {
           }
         />
 
-        {/* AUDIO DETECTION */}
-        <Route
-          path="/audio"
-          element={
-            <ProtectedRoute>
-              <AudioDetection />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* HISTORY */}
         <Route
           path="/history"
           element={
@@ -113,7 +112,15 @@ function App() {
           }
         />
 
-        {/* ANALYTICS */}
+        <Route
+          path="/audio"
+          element={
+            <ProtectedRoute>
+              <AudioDetection />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/analytics"
           element={
@@ -123,7 +130,6 @@ function App() {
           }
         />
 
-        {/* HABITAT */}
         <Route
           path="/habitat"
           element={
@@ -133,37 +139,6 @@ function App() {
           }
         />
 
-        {/* POPULATION */}
-        <Route
-          path="/population"
-          element={
-            <ProtectedRoute>
-              <Population />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* CONSERVATION */}
-        <Route
-          path="/conservation"
-          element={
-            <ProtectedRoute>
-              <Conservation />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* ECOSYSTEM HEALTH */}
-        <Route
-          path="/ecosystem-health"
-          element={
-            <ProtectedRoute>
-              <EcosystemHealth />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* REPORTS */}
         <Route
           path="/reports"
           element={
@@ -173,7 +148,33 @@ function App() {
           }
         />
 
-        {/* PROFILE */}
+        <Route
+          path="/population"
+          element={
+            <ProtectedRoute>
+              <Population />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/conservation"
+          element={
+            <ProtectedRoute>
+              <Conservation />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/ecosystem-health"
+          element={
+            <ProtectedRoute>
+              <EcosystemHealth />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/profile"
           element={
@@ -184,6 +185,7 @@ function App() {
         />
 
       </Routes>
+
     </BrowserRouter>
   );
 }

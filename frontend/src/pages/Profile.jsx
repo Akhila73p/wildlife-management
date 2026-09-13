@@ -12,6 +12,7 @@ function Profile() {
         const payload = JSON.parse(atob(token.split(".")[1]));
 
         setUser({
+          full_name: payload.full_name,
           email: payload.sub,
           role: payload.role,
         });
@@ -21,10 +22,11 @@ function Profile() {
     }
   }, []);
 
+  const name = user?.full_name || "User";
   const email = user?.email || "Account email";
   const role = user?.role || "User";
 
-  const roleName = role.replace("_", " ");
+  const roleName = role.replace(/_/g, " ");
 
   return (
     <div className="flex min-h-screen bg-[#0b1120]">
@@ -65,14 +67,17 @@ function Profile() {
                 Welcome
               </p>
 
+              {/* USER NAME */}
               <h2 className="text-3xl font-bold text-white mt-1">
-                {roleName}
+                {name}
               </h2>
 
+              {/* EMAIL */}
               <p className="text-slate-400 mt-2">
                 {email}
               </p>
 
+              {/* ROLE */}
               <div className="mt-4">
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-violet-500/10 border border-violet-400/20 text-violet-400 text-sm font-semibold">
 
@@ -115,6 +120,18 @@ function Profile() {
 
             <div className="space-y-5">
 
+              {/* Name */}
+              <div>
+                <p className="text-slate-500 text-xs uppercase tracking-wider">
+                  Full Name
+                </p>
+
+                <p className="text-white font-medium mt-1">
+                  {name}
+                </p>
+              </div>
+
+              {/* Email */}
               <div>
                 <p className="text-slate-500 text-xs uppercase tracking-wider">
                   Email Address
@@ -125,6 +142,7 @@ function Profile() {
                 </p>
               </div>
 
+              {/* Role */}
               <div>
                 <p className="text-slate-500 text-xs uppercase tracking-wider">
                   Account Role
