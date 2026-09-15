@@ -1,19 +1,26 @@
-from transformers import pipeline
-
 MODEL_NAME = (
     "ardneebwar/"
     "wav2vec2-animal-sounds-finetuned-hubert-finetuned-animals"
 )
 
-print("Loading animal sound model...")
+_audio_classifier = None
 
-audio_classifier = pipeline(
-    "audio-classification",
-    model=MODEL_NAME,
-    top_k=5
-)
-
-print("Animal sound model loaded successfully!")
+def get_audio_classifier():
+    global _audio_classifier
+    if _audio_classifier is None:
+        try:
+            from transformers import pipeline
+            print("Loading animal sound model...")
+            _audio_classifier = pipeline(
+                "audio-classification",
+                model=MODEL_NAME,
+                top_k=5
+            )
+            print("Animal sound model loaded successfully!")
+        except Exception as err:
+            print(f"Failed to load audio classifier model: {err}")
+            return None
+    return _audio_classifier
 
 
 SUPPORTED_ANIMALS = {
@@ -34,7 +41,16 @@ def detect_audio_sound(audio_path: str):
 
     try:
 
-        results = audio_classifier(audio_path)
+        classifier = get_audio_classifier()
+        if not classifier:
+            return {
+                "species": "Model Not Available",
+                "confidence": 0,
+                "predictions": [],
+                "message": "Audio classifier model is currently unavailable."
+            }
+
+        results = classifier(audio_path)
 
         print("MODEL RESULTS:")
         print(results)

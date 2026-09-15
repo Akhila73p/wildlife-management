@@ -26,3 +26,5 @@ backend/app/__pycache__/
 *.pt
 *.onnx
 *.pth
+*.db
+backend/*.db

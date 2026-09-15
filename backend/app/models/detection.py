@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, DateTime
 from datetime import datetime
 
-from app.database.connection import Base
+from app.database.base import Base
 
 
 class Detection(Base):
