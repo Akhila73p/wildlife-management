@@ -30,8 +30,11 @@ SessionLocal = sessionmaker(
     bind=engine
 )
 
-# Create all tables
-Base.metadata.create_all(bind=engine)
+# Create all tables safely
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as err:
+    print(f"Database table initialization warning: {err}")
 
 # Database session
 def get_db():
