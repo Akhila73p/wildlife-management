@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -20,7 +21,7 @@ function DashboardCards() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://127.0.0.1:8000/population/summary",
+        `${API_BASE_URL}/population/summary`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

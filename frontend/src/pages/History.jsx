@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Sidebar from "../components/Sidebar";
@@ -14,7 +15,7 @@ function History() {
       const token = localStorage.getItem("token");
 
       const response = await axios.get(
-        "http://127.0.0.1:8000/detect/history",
+        `${API_BASE_URL}/detect/history`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

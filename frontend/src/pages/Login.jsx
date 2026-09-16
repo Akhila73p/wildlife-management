@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { useState } from "react";
 import axios from "axios";
 
@@ -10,7 +11,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/users/login",
+        `${API_BASE_URL}/users/login`,
         {
           email: email.trim(),
           password: password,

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -26,7 +27,7 @@ function Register() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/users/register",
+        `${API_BASE_URL}/users/register`,
         {
           full_name: fullName.trim(),
           email: email.trim(),
