@@ -41,6 +41,26 @@ def get_current_user(
         )
 
 
+optional_security = HTTPBearer(auto_error=False)
+
+
+def get_optional_current_user(
+    credentials: HTTPAuthorizationCredentials = Depends(optional_security)
+):
+    if not credentials:
+        return None
+    token = credentials.credentials
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email = payload.get("sub")
+        role = payload.get("role")
+        if not email or not role:
+            return None
+        return {"email": email, "role": role}
+    except Exception:
+        return None
+
+
 def require_roles(*allowed_roles):
 
     def role_checker(

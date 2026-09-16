@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
@@ -33,6 +33,14 @@ SessionLocal = sessionmaker(
 # Create all tables safely and seed default accounts
 try:
     Base.metadata.create_all(bind=engine)
+    
+    # Ensure user_email column exists in existing detections table
+    try:
+        with engine.connect() as conn:
+            conn.execute(text("ALTER TABLE detections ADD COLUMN IF NOT EXISTS user_email VARCHAR;"))
+            conn.commit()
+    except Exception:
+        pass
     
     # Auto-seed default accounts so login is always available without re-registering
     from app.utils.security import hash_password

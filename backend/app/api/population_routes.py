@@ -1,11 +1,13 @@
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
+from typing import Optional
 
 from app.database.connection import get_db
 from app.services.population_service import (
     get_population_summary,
     search_population_species
 )
+from app.auth.auth import get_optional_current_user
 
 import pandas as pd
 from pathlib import Path
@@ -19,9 +21,14 @@ router = APIRouter(
 
 @router.get("/summary")
 def population_summary(
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    current_user: Optional[dict] = Depends(get_optional_current_user)
 ):
-    return get_population_summary(db)
+    user_email = current_user.get("email") if current_user else None
+    if current_user and current_user.get("role") == "admin":
+        user_email = None
+
+    return get_population_summary(db, user_email=user_email)
 
 
 @router.get("/species-search")

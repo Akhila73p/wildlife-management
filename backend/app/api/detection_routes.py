@@ -46,7 +46,8 @@ async def detect_image(
                     db=db,
                     image_name=file.filename,
                     animal=item.get("animal", "Wildlife"),
-                    confidence=item.get("confidence", 90.0)
+                    confidence=item.get("confidence", 90.0),
+                    user_email=current_user.get("email")
                 )
         except Exception as db_err:
             print(f"Database save warning: {db_err}")
@@ -79,7 +80,9 @@ def detection_history(
         require_roles("student", "research_officer", "forest_officer", "admin")
     )
 ):
-
-    history = get_detection_history(db)
+    if current_user.get("role") == "admin":
+        history = get_detection_history(db)
+    else:
+        history = get_detection_history(db, user_email=current_user.get("email"))
 
     return history

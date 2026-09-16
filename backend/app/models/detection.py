@@ -16,6 +16,8 @@ class Detection(Base):
 
     confidence = Column(Float)
 
+    user_email = Column(String, nullable=True, index=True)
+
     detected_at = Column(
         DateTime,
         default=datetime.utcnow

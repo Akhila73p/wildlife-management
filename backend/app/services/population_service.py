@@ -16,14 +16,18 @@ def get_dataset_path():
     )
 
 
-def get_population_summary(db: Session):
+def get_population_summary(db: Session, user_email: str = None):
 
     # -------------------------------------------------
     # 1. EXISTING APPLICATION DETECTION DATA
     # -------------------------------------------------
 
+    query = db.query(Detection)
+    if user_email:
+        query = query.filter(Detection.user_email == user_email)
+
     detections = (
-        db.query(Detection)
+        query
         .order_by(Detection.detected_at.asc())
         .all()
     )

@@ -4,18 +4,22 @@ from sqlalchemy import func
 from app.models.detection import Detection
 
 
-def get_analytics(db: Session):
+def get_analytics(db: Session, user_email: str = None):
 
-    total = db.query(Detection).count()
+    query = db.query(Detection)
+    if user_email:
+        query = query.filter(Detection.user_email == user_email)
 
-    species = (
-        db.query(
-            Detection.animal,
-            func.count(Detection.id).label("count")
-        )
-        .group_by(Detection.animal)
-        .all()
+    total = query.count()
+
+    species_query = db.query(
+        Detection.animal,
+        func.count(Detection.id).label("count")
     )
+    if user_email:
+        species_query = species_query.filter(Detection.user_email == user_email)
+
+    species = species_query.group_by(Detection.animal).all()
 
     # Convert SQLAlchemy rows into JSON
     species_list = []
