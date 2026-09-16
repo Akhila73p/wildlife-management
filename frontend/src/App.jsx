@@ -17,7 +17,7 @@ import Population from "./pages/population";
 import Conservation from "./pages/conservation";
 import EcosystemHealth from "./pages/ecosystemhealth";
 
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute from "./components/protectedRoute";
 
 // Role dashboards
 import StudentDashboard from "./pages/studentdashboard";
