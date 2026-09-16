@@ -29,6 +29,10 @@ function ProtectedRoute({ children }) {
     research_officer: [
       "/research-officer-dashboard",
       "/dashboard",
+      "/wildlife",
+      "/detection",
+      "/audio",
+      "/history",
       "/population",
       "/habitat",
       "/analytics",
@@ -41,6 +45,10 @@ function ProtectedRoute({ children }) {
     forest_officer: [
       "/forest-officer-dashboard",
       "/dashboard",
+      "/wildlife",
+      "/detection",
+      "/audio",
+      "/history",
       "/population",
       "/habitat",
       "/conservation",

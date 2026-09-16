@@ -30,11 +30,36 @@ SessionLocal = sessionmaker(
     bind=engine
 )
 
-# Create all tables safely
+# Create all tables safely and seed default accounts
 try:
     Base.metadata.create_all(bind=engine)
+    
+    # Auto-seed default accounts so login is always available without re-registering
+    from app.utils.security import hash_password
+    _seed_db = SessionLocal()
+    try:
+        default_accounts = [
+            {
+                "full_name": "Wildlife Admin",
+                "email": "admin@wildlife.com",
+                "password": hash_password("Admin123!"),
+                "role": "admin"
+            },
+            {
+                "full_name": "Student User",
+                "email": "student@wildlife.com",
+                "password": hash_password("Student123!"),
+                "role": "student"
+            }
+        ]
+        for acc in default_accounts:
+            if not _seed_db.query(User).filter(User.email == acc["email"]).first():
+                _seed_db.add(User(**acc))
+        _seed_db.commit()
+    finally:
+        _seed_db.close()
 except Exception as err:
-    print(f"Database table initialization warning: {err}")
+    print(f"Database table initialization notice: {err}")
 
 # Database session
 def get_db():
