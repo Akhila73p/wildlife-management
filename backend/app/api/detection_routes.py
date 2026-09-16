@@ -25,7 +25,7 @@ async def detect_image(
     file: UploadFile = File(...),
     db: Session = Depends(get_db),
     current_user: dict = Depends(
-        require_roles("student", "admin")
+        require_roles("student", "research_officer", "forest_officer", "admin")
     )
 ):
 
@@ -57,7 +57,7 @@ async def detect_image(
 def detection_history(
     db: Session = Depends(get_db),
     current_user: dict = Depends(
-        require_roles("student", "admin")
+        require_roles("student", "research_officer", "forest_officer", "admin")
     )
 ):
 
