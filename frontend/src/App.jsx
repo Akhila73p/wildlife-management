@@ -1,28 +1,28 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/login";
+import Register from "./pages/register";
 
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/dashboard";
 import Wildlife from "./pages/Wildlife";
 import Detection from "./pages/Detection";
 import Habitat from "./pages/Habitat";
 import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
-import History from "./pages/History";
-import AudioDetection from "./pages/AudioDetection";
-import Analytics from "./pages/Analytics";
-import Population from "./pages/Population";
-import Conservation from "./pages/Conservation";
-import EcosystemHealth from "./pages/EcosystemHealth";
+import History from "./pages/history";
+import AudioDetection from "./pages/audiodetection";
+import Analytics from "./pages/analytics";
+import Population from "./pages/population";
+import Conservation from "./pages/conservation";
+import EcosystemHealth from "./pages/ecosystemhealth";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 
 // Role dashboards
-import StudentDashboard from "./pages/StudentDashboard";
-import ResearchOfficerDashboard from "./pages/ResearchOfficerDashboard";
-import ForestOfficerDashboard from "./pages/ForestOfficerDashboard";
+import StudentDashboard from "./pages/studentdashboard";
+import ResearchOfficerDashboard from "./pages/researchofficerdashboard";
+import ForestOfficerDashboard from "./pages/forestofficerdashboard";
 
 
 function App() {
