@@ -25,6 +25,7 @@ backend/app/__pycache__/
 # Large model files
 *.pt
 *.onnx
+!backend/app/ai/mobilenetv2.onnx
 *.pth
 *.db
 backend/*.db
